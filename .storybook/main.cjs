@@ -1,4 +1,4 @@
-// const { preprocess } = require("../svelte.config.js");
+const preprocess = require("svelte-preprocess");
 
 module.exports = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx|svelte)"],
@@ -12,7 +12,7 @@ module.exports = {
     builder: "@storybook/builder-vite",
   },
   svelteOptions: {
-    preprocess: import("../svelte.config.js").preprocess,
+    preprocess: preprocess(),
   },
   features: {
     storyStoreV7: true,
