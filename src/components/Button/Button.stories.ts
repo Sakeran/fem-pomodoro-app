@@ -1,12 +1,13 @@
 import ButtonSvelte from "./Button.svelte";
 
-console.log(ButtonSvelte);
-
-
-
 export default {
   title: "Button",
   Component: ButtonSvelte,
+  parameters: {
+    actions: {
+      handles: ["click"],
+    },
+  },
 };
 
 const Template = (args) => ({
@@ -17,11 +18,11 @@ const Template = (args) => ({
 export const Normal = Template.bind({});
 Normal.args = {
   text: "Apply",
-  disabled: false
-}
+  disabled: false,
+};
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   ...Normal.args,
-  disabled: true
-}
+  disabled: true,
+};

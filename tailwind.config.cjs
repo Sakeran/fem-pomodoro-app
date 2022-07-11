@@ -2,6 +2,11 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{svelte,ts,js}"],
   theme: {
+    fontFamily: {
+      sans: ["Kumbh Sans", "sans-serif"],
+      mono: ["Space Mono", "monospace"],
+      serif: ["Roboto Slab", "serif"],
+    },
     colors: {
       white: "hsl(0, 0%, 100%)",
       prose: "hsl(227, 100%, 92%)",
@@ -10,6 +15,7 @@ module.exports = {
         dark: "hsl(234, 39%, 14%)",
         light: "hsl(229, 52%, 96%)",
         red: "hsl(0, 91%, 71%)",
+        "dull-red": "hsl(0, 5%, 89%)",
         blue: "hsl(182, 91%, 71%)",
         magenta: "hsl(182, 89%, 74%)",
       },
