@@ -46,7 +46,7 @@
     <div
       class="ni-btns flex flex-col gap-2 text-background/25 motion-safe:transition-colors self-stretch"
     >
-      <button tabindex="-1" data-testid="increment"
+      <button tabindex="-1"
         ><span class="sr-only">increment</span><svg
           xmlns="http://www.w3.org/2000/svg"
           on:click={increment}
@@ -61,11 +61,7 @@
           /></svg
         ></button
       >
-      <button
-        tabindex="-1"
-        aria-label="decrement"
-        on:click={decrement}
-        data-testid="decrement"
+      <button tabindex="-1" aria-label="decrement" on:click={decrement}
         ><span class="sr-only">decrement</span><svg
           xmlns="http://www.w3.org/2000/svg"
           width="14"
