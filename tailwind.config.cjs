@@ -8,6 +8,7 @@ module.exports = {
       serif: ["Roboto Slab", "serif"],
     },
     colors: {
+      transparent: "transparent",
       white: "hsl(0, 0%, 100%)",
       prose: "hsl(227, 100%, 92%)",
       background: "hsl(235, 35%, 18%)",
@@ -17,7 +18,7 @@ module.exports = {
         red: "hsl(0, 91%, 71%)",
         "dull-red": "hsl(0, 5%, 89%)",
         blue: "hsl(182, 91%, 71%)",
-        magenta: "hsl(182, 89%, 74%)",
+        magenta: "hsl(284, 89%, 74%)",
       },
     },
     borderRadius: {
@@ -41,15 +42,10 @@ module.exports = {
         8: "2rem", // 32px
       },
       letterSpacing: {
-        tight: {
-          15: "-0.9375em",
-          10: "0.625em",
-          4: "0.25em",
-        },
-        wide: {
-          15: "-0.9375em",
-          5: "0.3125em",
-        },
+        15: "0.9375em",
+        10: "0.625em",
+        5: "0.3125em",
+        4: "0.25em",
       },
     },
   },
