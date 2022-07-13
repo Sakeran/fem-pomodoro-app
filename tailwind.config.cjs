@@ -17,6 +17,7 @@ module.exports = {
         dark: "hsl(234, 39%, 14%)",
         light: "hsl(229, 52%, 96%)",
         red: "hsl(0, 91%, 71%)",
+        "light-red": "hsl(0, 90%, 76%)",
         "dull-red": "hsl(0, 5%, 89%)",
         blue: "hsl(182, 91%, 71%)",
         magenta: "hsl(284, 89%, 74%)",
