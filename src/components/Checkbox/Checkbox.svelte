@@ -6,11 +6,14 @@
 </script>
 
 <div class="flex items-center justify-between">
-  <label class="text-13p uppercase tracking-5" for={id}>{label}</label>
+  <label
+    class=" select-none text-13p uppercase tracking-5 cursor-pointer"
+    for={id}>{label}</label
+  >
 
   <div class="grid place-items-center">
     <input
-      class="appearance-none row-start-1 row-end-1 col-start-1 col-end-1 min-w-[2.5rem] aspect-square bg-ui-light checked:bg-ui-dark rounded-full motion-safe:transition-colors motion-safe:ease-in-out"
+      class="appearance-none row-start-1 row-end-1 col-start-1 col-end-1 min-w-[2.5rem] aspect-square bg-ui-light checked:bg-ui-dark rounded-full motion-safe:transition-colors motion-safe:ease-in-out cursor-pointer"
       type="checkbox"
       {id}
       bind:checked
@@ -32,5 +35,4 @@
       />
     </svg>
   </div>
-
 </div>
