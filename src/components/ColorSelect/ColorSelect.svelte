@@ -5,7 +5,9 @@
     "inline-grid place-content-center min-w-[2.5rem] aspect-square rounded-full cursor-pointer outline outline-1 outline-ui-light/0 outline-offset-[5px] motion-safe:transition-colors";
 </script>
 
-<fieldset class="text-15p flex justify-between items-center">
+<fieldset
+  class="text-15p flex flex-col gap-4 sm:flex-row sm:justify-between items-center"
+>
   <legend class="sr-only">Select UI Color</legend>
   <div aria-hidden="true" class="text-13p uppercase tracking-5">Color</div>
 
