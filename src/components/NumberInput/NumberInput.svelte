@@ -15,7 +15,7 @@
   }
 
   function decrement() {
-    value -= Math.max(value - 1, 0);
+    value = Math.max(value - 1, 0);
     input.focus();
   }
 
@@ -31,7 +31,7 @@
     >{label}</label
   >
   <div
-    class="ni-container-input bg-ui-light rounded-sm px-4 py-3 sm:py-4 flex flex-row cursor-text"
+    class="bg-ui-light rounded-sm px-4 py-3 sm:py-4 flex flex-row cursor-text"
     on:click|self={handleOuterClick}
   >
     <input
@@ -44,12 +44,14 @@
       min="0"
     />
     <div
-      class="ni-btns flex flex-col gap-2 text-background/25 motion-safe:transition-colors self-stretch"
+      class="flex flex-col gap-2 text-background/25 self-stretch cursor-auto"
     >
-      <button tabindex="-1"
+      <button
+        tabindex="-1"
+        class="hover:text-background/100 motion-safe:transition-colors"
+        on:click={increment}
         ><span class="sr-only">increment</span><svg
           xmlns="http://www.w3.org/2000/svg"
-          on:click={increment}
           width="14"
           height="7"
           aria-hidden="true"
@@ -61,7 +63,11 @@
           /></svg
         ></button
       >
-      <button tabindex="-1" aria-label="decrement" on:click={decrement}
+      <button
+        tabindex="-1"
+        aria-label="decrement"
+        on:click={decrement}
+        class="hover:text-background/100 motion-safe:transition-colors"
         ><span class="sr-only">decrement</span><svg
           xmlns="http://www.w3.org/2000/svg"
           width="14"
@@ -83,10 +89,5 @@
   input {
     appearance: textfield;
     outline: none;
-  }
-
-  .ni-container-input:hover .ni-btns,
-  .ni-container-input:focus-within .ni-btns {
-    @apply text-background/100;
   }
 </style>
