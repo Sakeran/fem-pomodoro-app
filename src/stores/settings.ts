@@ -1,6 +1,6 @@
-import { writable } from "svelte/store";
+import { Writable, writable } from "svelte/store";
 
-type SettingsOptions = {
+export type SettingsOptions = {
   time: {
     pomodoro: number;
     shortBreak: number;
@@ -14,7 +14,9 @@ type SettingsOptions = {
   notifications: boolean;
 };
 
-const initialSettings: SettingsOptions = {
+export type SettingsStore = Writable<SettingsOptions>;
+
+const initialSettings: () => SettingsOptions = () => ({
   time: {
     pomodoro: 25,
     shortBreak: 5,
@@ -26,14 +28,21 @@ const initialSettings: SettingsOptions = {
 
   sound: false,
   notifications: false,
-};
+});
 
 export const settingsKey = "pomodoro-settings-key";
 
 export function createSettingsStore(
   defaultSettings?: Partial<SettingsOptions>
-) {
+): SettingsStore {
   return writable<SettingsOptions>(
-    Object.assign({}, initialSettings, defaultSettings || {})
+    Object.assign({}, initialSettings(), {
+      ...defaultSettings,
+      time: {
+        pomodoro: defaultSettings.time?.pomodoro || 25,
+        shortBreak: defaultSettings.time?.shortBreak || 5,
+        longBreak: defaultSettings.time?.longBreak || 15,
+      },
+    })
   );
 }

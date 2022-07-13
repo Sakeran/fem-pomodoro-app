@@ -1,15 +1,56 @@
-<script lang="js">
-  import { fade } from "svelte/transition";
-
+<script lang="ts">
   import MenuTabList from "../MenuTabList/MenuTabList.svelte";
   import Button from "../Button/Button.svelte";
   import NumberInput from "../NumberInput/NumberInput.svelte";
   import FontSelect from "../FontSelect/FontSelect.svelte";
   import ColorSelect from "../ColorSelect/ColorSelect.svelte";
   import Checkbox from "../Checkbox/Checkbox.svelte";
+  import { getContext } from "svelte";
+  import {
+    createSettingsStore,
+    settingsKey,
+    SettingsStore,
+  } from "../../stores/settings";
+  import { get } from "svelte/store";
 
   let activeTab = 0;
   let hasUnappliedSettings = false;
+
+  const store: SettingsStore = getContext(settingsKey);
+
+  // Temporary store to track settings changes
+  const currentStore = createSettingsStore({ ...get(store) });
+
+  $: {
+    // Determine if any settings are currently unapplied.
+    hasUnappliedSettings =
+      $store.time.pomodoro !== $currentStore.time.pomodoro ||
+      $store.time.shortBreak !== $currentStore.time.shortBreak ||
+      $store.time.longBreak !== $currentStore.time.longBreak ||
+      $store.color !== $currentStore.color ||
+      $store.font !== $currentStore.font ||
+      $store.notifications !== $currentStore.notifications ||
+      $store.sound !== $currentStore.sound;
+  }
+
+  function applySettings() {
+    if (!hasUnappliedSettings) return;
+
+    $store.time.pomodoro = $currentStore.time.pomodoro;
+    $store.time.shortBreak = $currentStore.time.shortBreak;
+    $store.time.longBreak = $currentStore.time.longBreak;
+    $store.color = $currentStore.color;
+    $store.font = $currentStore.font;
+    $store.notifications = $currentStore.notifications;
+    $store.sound = $currentStore.sound;
+
+    close();
+  }
+
+  function close() {
+    // TODO
+    console.log("Close modal");
+  }
 </script>
 
 <div class="w-full max-w-[33.75rem] bg-white rounded-md">
@@ -19,6 +60,7 @@
     <h2 class="text-5 sm:text-7 font-bold text-ui-dark">Settings</h2>
     <button
       class="p-4 text-background/50 hover:text-background/100 focus:text-background/100"
+      on:click={close}
     >
       <span class="sr-only">Close Settings</span>
       <svg
@@ -66,18 +108,30 @@
           </div>
 
           <div class="mt-4 flex flex-col gap-2 sm:flex-row sm:gap-5">
-            <NumberInput label="pomodoro" value={0} placeholder={30} />
-            <NumberInput label="short break" value={0} placeholder={5} />
-            <NumberInput label="long break" value={0} placeholder={15} />
+            <NumberInput
+              label="pomodoro"
+              bind:value={$currentStore.time.pomodoro}
+              placeholder={30}
+            />
+            <NumberInput
+              label="short break"
+              bind:value={$currentStore.time.shortBreak}
+              placeholder={5}
+            />
+            <NumberInput
+              label="long break"
+              bind:value={$currentStore.time.longBreak}
+              placeholder={15}
+            />
           </div>
         </fieldset>
 
         <div class="pt-6 mt-6 border-t border-gray">
-          <FontSelect />
+          <FontSelect bind:selection={$currentStore.font} />
         </div>
 
         <div class="pt-6 mt-6 border-t border-gray">
-          <ColorSelect />
+          <ColorSelect bind:selection={$currentStore.color} />
         </div>
       </div>
     </div>
@@ -92,17 +146,24 @@
     >
       <div>
         <div>
-          <Checkbox label="sound" checked={false} />
+          <Checkbox label="sound" bind:checked={$currentStore.sound} />
         </div>
         <div class="pt-6 mt-6 border-t border-gray">
-          <Checkbox label="notifications" checked={false} />
+          <Checkbox
+            label="notifications"
+            bind:checked={$currentStore.notifications}
+          />
         </div>
       </div>
     </div>
   </div>
 
-  <div class="relative translate-y-1/2 flex justify-center">
-    <Button text="Apply" disabled={!hasUnappliedSettings} />
+  <div class="relative translate-y-1/2 flex justify-center mt-1">
+    <Button
+      text="Apply"
+      disabled={!hasUnappliedSettings}
+      on:click={applySettings}
+    />
   </div>
 </div>
 

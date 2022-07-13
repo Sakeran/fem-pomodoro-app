@@ -1,4 +1,3 @@
-import CenteredComponentSvelte from "../storyDecorators/CenteredComponent.svelte";
 import SettingsProviderSvelte from "../storyDecorators/SettingsProvider.svelte";
 import SettingsModalSvelte from "./SettingsModal.svelte";
 
@@ -28,3 +27,15 @@ const Template = (args) => ({
 
 export const Initial = Template.bind({});
 Initial.args = {};
+
+export const CustomSettings = Template.bind({});
+CustomSettings.parameters = {
+  storeValues: {
+    time: {
+      pomodoro: 13,
+    },
+    font: "serif",
+    color: "magenta",
+    sound: true,
+  },
+};

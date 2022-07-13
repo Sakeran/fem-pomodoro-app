@@ -6,7 +6,7 @@
 
   const store = createSettingsStore(storeValues);
 
-  setContext(store, settingsKey);
+  setContext(settingsKey, store);
 </script>
 
 <slot />
