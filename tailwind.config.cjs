@@ -10,6 +10,7 @@ module.exports = {
     colors: {
       transparent: "transparent",
       white: "hsl(0, 0%, 100%)",
+      gray: "hsl(0, 2%, 89%)",
       prose: "hsl(227, 100%, 92%)",
       background: "hsl(235, 35%, 18%)",
       ui: {

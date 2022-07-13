@@ -43,6 +43,7 @@
     <button
       on:click={() => select(i)}
       on:keydown={handleKeydown}
+      id={`menutabbutton-${option}`}
       tabindex={activeTab === i ? 0 : -1}
       class="basis-full py-4 text-background text-14p rounded-pill motion-safe:transition-colors motion-safe:ease-in-out"
       role="tab"
