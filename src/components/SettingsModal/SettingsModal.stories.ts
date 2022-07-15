@@ -1,9 +1,14 @@
+import { action } from "@storybook/addon-actions";
+
 import SettingsProviderSvelte from "../storyDecorators/SettingsProvider.svelte";
 import SettingsModalSvelte from "./SettingsModal.svelte";
 
 export default {
   Component: SettingsModalSvelte,
   title: "Settings Modal",
+  argTypes: {
+    close: { action: "closed" },
+  },
   parameters: {
     backgrounds: {
       default: "background",
@@ -23,6 +28,9 @@ export default {
 const Template = (args) => ({
   Component: SettingsModalSvelte,
   props: args,
+  on: {
+    close: action('close'),
+  },
 });
 
 export const Initial = Template.bind({});

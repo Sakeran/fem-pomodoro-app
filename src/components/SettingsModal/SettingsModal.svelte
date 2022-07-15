@@ -5,7 +5,7 @@
   import FontSelect from "../FontSelect/FontSelect.svelte";
   import ColorSelect from "../ColorSelect/ColorSelect.svelte";
   import Checkbox from "../Checkbox/Checkbox.svelte";
-  import { getContext } from "svelte";
+  import { createEventDispatcher, getContext } from "svelte";
   import {
     createSettingsStore,
     settingsKey,
@@ -15,6 +15,8 @@
 
   let activeTab = 0;
   let hasUnappliedSettings = false;
+
+  const dispatch = createEventDispatcher();
 
   const store: SettingsStore = getContext(settingsKey);
 
@@ -48,8 +50,7 @@
   }
 
   function close() {
-    // TODO
-    console.log("Close modal");
+    dispatch("close");
   }
 </script>
 
