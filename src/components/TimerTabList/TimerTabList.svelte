@@ -13,11 +13,12 @@
     timerType === activeTimer;
 
   const classes =
-    "basis-full py-4 text-12p sm:text-14p rounded-pill motion-safe:transition-colors motion-safe:ease-in-out";
+    "basis-full py-4 text-12p sm:text-14p rounded-pill focus-visible:outline-ui-light focus-visible:outline focus-visible:outline-2 motion-safe:transition-colors motion-safe:ease-in-out";
   const btnClasses = (type: typeof activeTimer) =>
     isPressed(type)
       ? "ui-bg-color text-background " + classes
-      : "text-ui-light/40 " + classes;
+      : "text-ui-light/40 hover:text-ui-light/100 focus-visible:text-ui-light/100 " +
+        classes;
 </script>
 
 <div class="bg-ui-dark p-2 rounded-pill flex gap-1 max-w-sm">
