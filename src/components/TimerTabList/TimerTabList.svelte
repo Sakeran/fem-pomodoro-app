@@ -5,29 +5,9 @@
 
   export let activeTimer: "pomodoro" | "shortBreak" | "longBreak";
 
-  const store: SettingsStore = getContext(settingsKey);
-
   const dispatch = createEventDispatcher();
   const select = (type: typeof activeTimer) => () =>
     dispatch("selectTimerType", type);
-
-  let bg_color: string = "";
-
-  $: {
-    switch ($store.color) {
-      case "red":
-        bg_color = "bg-ui-red";
-        break;
-      case "blue":
-        bg_color = "bg-ui-blue";
-        break;
-      case "magenta":
-        bg_color = "bg-ui-magenta";
-        break;
-      default:
-        bg_color = "bg-ui-red";
-    }
-  }
 
   const isPressed = (timerType: typeof activeTimer) =>
     timerType === activeTimer;
@@ -36,7 +16,7 @@
     "basis-full py-4 text-12p sm:text-14p rounded-pill motion-safe:transition-colors motion-safe:ease-in-out";
   const btnClasses = (type: typeof activeTimer) =>
     isPressed(type)
-      ? `${bg_color} text-background ${classes}`
+      ? "ui-bg-color text-background " + classes
       : "text-ui-light/40 " + classes;
 </script>
 

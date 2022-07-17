@@ -6,3 +6,15 @@
   background-color: theme("colors.ui.dark");
   color: white;
 }
+
+.ui-color {
+  color: var(--ui-color);
+}
+
+.ui-bg-color {
+  background-color: var(--ui-color);
+}
+
+.ui-font {
+  font-family: var(--ui-font);
+}

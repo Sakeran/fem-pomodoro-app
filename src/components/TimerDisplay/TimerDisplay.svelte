@@ -15,44 +15,19 @@
 
   // Determine font / trackings
   let timerStyles = "";
-  let actionStyles = "";
   $: {
     switch ($store.font) {
       case "sans":
         timerStyles = "font-sans -tracking-[4px] sm:-tracking-[5px]";
-        actionStyles = "font-sans";
         break;
       case "serif":
         timerStyles = "font-serif";
-        actionStyles = "font-serif";
         break;
       case "mono":
         timerStyles = "font-mono -tracking-[10px]";
-        actionStyles = "font-mono";
         break;
       default:
         timerStyles = "font-sans -tracking-[4px] sm:-tracking[5px]";
-        actionStyles = "font-sans";
-    }
-  }
-
-  // Determine UI color for SVG stroke
-
-  let strokeColor: string = "";
-
-  $: {
-    switch ($store.color) {
-      case "red":
-        strokeColor = "text-ui-red";
-        break;
-      case "blue":
-        strokeColor = "text-ui-blue";
-        break;
-      case "magenta":
-        strokeColor = "text-ui-magenta";
-        break;
-      default:
-        strokeColor = "text-ui-red";
     }
   }
 
@@ -71,7 +46,7 @@
         aria-hidden="true"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        class={`${strokeColor} absolute inset-0 -rotate-90`}
+        class="ui-color absolute inset-0 -rotate-90"
       >
         <circle
           bind:this={circle}
@@ -94,7 +69,7 @@
             {timerValue}
           </div>
           <div
-            class={`${actionStyles} timer-action h-0 text-white text-14p sm:text-4 uppercase tracking-[13px] sm:tracking-[15px]`}
+            class={`ui-font timer-action h-0 text-white text-14p sm:text-4 uppercase tracking-[13px] sm:tracking-[15px] motion-safe:transition-colors`}
           >
             {actionValue}
           </div>
@@ -105,6 +80,11 @@
 >
 
 <style lang="postcss">
+  button:hover .timer-action,
+  button:focus-visible .timer-action {
+    color: var(--ui-color, white);
+  }
+
   .timer-outer {
     background-image: linear-gradient(
       135deg,
