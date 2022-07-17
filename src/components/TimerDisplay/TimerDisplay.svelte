@@ -13,7 +13,7 @@
   let timerValue = "17:32"; // stub
   let actionValue = "Reset"; // stub
 
-  // Determine font / trackings
+  // Determine font / tracking for timer display
   let timerStyles = "";
   $: {
     switch ($store.font) {
@@ -36,7 +36,10 @@
   });
 </script>
 
-<button class="block w-full">
+<button
+  on:click
+  class="block w-full motion-safe:duration-200 motion-safe:ease-in-out rounded-full"
+>
   <div
     class="timer-outer aspect-square rounded-full flex items-center justify-center"
   >
@@ -69,7 +72,7 @@
             {timerValue}
           </div>
           <div
-            class={`ui-font timer-action h-0 text-white text-14p sm:text-4 uppercase tracking-[13px] sm:tracking-[15px] motion-safe:transition-colors`}
+            class={`ui-font timer-action h-0 text-white text-14p sm:text-4 uppercase tracking-[13px] sm:tracking-[15px] motion-safe:transition-colors motion-safe:delay-100 motion-safe:duration-200 motion-safe:ease-in-out`}
           >
             {actionValue}
           </div>
@@ -80,6 +83,17 @@
 >
 
 <style lang="postcss">
+  @media (prefers-reduced-motion: no-preference) {
+    button:hover,
+    button:focus-visible {
+      transform: scale(1.05);
+    }
+  }
+
+  button:focus-visible {
+    @apply outline outline-ui-light outline-offset-4;
+  }
+
   button:hover .timer-action,
   button:focus-visible .timer-action {
     color: var(--ui-color, white);

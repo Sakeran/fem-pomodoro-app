@@ -20,6 +20,9 @@ export default {
       default: "background",
       values: [{ name: "background", value: "#1E213F" }],
     },
+    actions: {
+      handles: ["click"],
+    },
   },
   decorators: [
     (_story, { parameters: { storeValues } }) => ({
