@@ -10,11 +10,17 @@
   }
 </script>
 
-<div class=" bg-white text-ui-dark rounded-md">
+<div
+  class=" bg-white text-ui-dark rounded-md"
+  role="dialog"
+  aria-labelledby="help-label"
+>
   <div
     class="pl-6 pr-2 pt-6 pb-7 sm:pl-10 sm:pr-6 sm:pb-8 flex justify-between items-center border-b border-gray"
   >
-    <h2 class="text-5 sm:text-7 font-bold text-ui-dark">Help</h2>
+    <h2 id="help-label" class="text-5 sm:text-7 font-bold text-ui-dark">
+      Help
+    </h2>
     <button
       class="p-4 text-background/50 hover:text-background/100 focus:text-background/100"
       on:click={close}
@@ -42,7 +48,7 @@
 
   <div class="px-6 sm:px-10 mt-6 sm:mt-8 ">
     <!-- Content -->
-    <div class="space-y-4 max-h-[20em] overflow-scroll">
+    <div class="space-y-4 max-h-[20em] overflow-scroll" tabindex="0">
       <p>TODO: Add Help Text</p>
 
       <p>

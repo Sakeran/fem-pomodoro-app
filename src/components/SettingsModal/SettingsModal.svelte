@@ -54,11 +54,11 @@
   }
 </script>
 
-<div class="bg-white text-ui-dark rounded-md">
+<div class="bg-white text-ui-dark rounded-md" role="dialog" aria-labelledby="settings-label">
   <div
     class="pl-6 pr-2 pt-6 pb-7 sm:pl-10 sm:pr-6 sm:pb-8 flex justify-between items-center border-b border-gray"
   >
-    <h2 class="text-5 sm:text-7 font-bold text-ui-dark">Settings</h2>
+    <h2 id="settings-label" class="text-5 sm:text-7 font-bold text-ui-dark">Settings</h2>
     <button
       class="p-4 text-background/50 hover:text-background/100 focus:text-background/100"
       on:click={close}

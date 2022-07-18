@@ -1,9 +1,16 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
 
   const dispatch = createEventDispatcher();
 
   let modal: HTMLDivElement;
+  let previousElement = document && document.activeElement;
+
+  onMount(() => {
+    const focusables = getFocusables();
+
+    focusables[0].focus();
+  });
 
   function handleKeydown(e: KeyboardEvent) {
     // Implements focus wrapping on keyboard.
@@ -18,9 +25,7 @@
     const shifted = e.shiftKey;
     const activeElement = document.activeElement;
 
-    const focusables = Array.from(modal.querySelectorAll("*")).filter(
-      (el) => el instanceof HTMLElement && el.tabIndex >= 0
-    ) as HTMLElement[];
+    const focusables = getFocusables();
 
     const activePosition = focusables.indexOf(activeElement as HTMLElement);
 
@@ -35,8 +40,15 @@
     }
   }
 
+  function getFocusables() {
+    return Array.from(modal.querySelectorAll("*")).filter(
+      (el) => el instanceof HTMLElement && el.tabIndex >= 0
+    ) as HTMLElement[];
+  }
+
   function close() {
     dispatch("close");
+    if (previousElement instanceof HTMLElement) previousElement.focus();
   }
 </script>
 
