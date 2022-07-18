@@ -54,7 +54,7 @@
   }
 </script>
 
-<div class="w-full max-w-[33.75rem] bg-white rounded-md">
+<div class="bg-white text-ui-dark rounded-md">
   <div
     class="pl-6 pr-2 pt-6 pb-7 sm:pl-10 sm:pr-6 sm:pb-8 flex justify-between items-center border-b border-gray"
   >

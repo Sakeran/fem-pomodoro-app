@@ -1,6 +1,6 @@
 <script lang="ts">
   export let text: string;
-  export let disabled: boolean;
+  export let disabled: boolean = false;
 </script>
 
 <button

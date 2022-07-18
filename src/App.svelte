@@ -1,6 +1,9 @@
 <script lang="ts">
   import { setContext } from "svelte";
+  import HelpModal from "./components/HelpModal/HelpModal.svelte";
   import MenuBar from "./components/MenuBar/MenuBar.svelte";
+  import ModalContainer from "./components/ModalContainer/ModalContainer.svelte";
+  import SettingsModal from "./components/SettingsModal/SettingsModal.svelte";
 
   import TimerDisplay from "./components/TimerDisplay/TimerDisplay.svelte";
   import TimerTabList from "./components/TimerTabList/TimerTabList.svelte";
@@ -8,6 +11,12 @@
 
   const settingsStore = createSettingsStore();
   setContext(settingsKey, settingsStore);
+
+  let currentScreen: "main" | "settings" | "help" = "main";
+
+  function closeModal() {
+    currentScreen = "main";
+  }
 </script>
 
 <main
@@ -30,9 +39,23 @@
 
   <!-- BUTTONS BAR -->
   <div class="relative z-10 mt-20 max-w-max mx-auto">
-    <MenuBar />
+    <MenuBar
+      on:openHelp={() => (currentScreen = "help")}
+      on:openSettings={() => (currentScreen = "settings")}
+    />
   </div>
 </main>
+
+<!-- MODALS -->
+{#if currentScreen === "help" || currentScreen === "settings"}
+  <ModalContainer on:close={closeModal}>
+    {#if currentScreen === "help"}
+      <HelpModal on:close={closeModal} />
+    {:else}
+      <SettingsModal on:close={closeModal} />
+    {/if}
+  </ModalContainer>
+{/if}
 
 <style>
   [data-ui-color="red"] {
