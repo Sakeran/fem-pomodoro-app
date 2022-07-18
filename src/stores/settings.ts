@@ -33,7 +33,7 @@ const initialSettings: () => SettingsOptions = () => ({
 export const settingsKey = "pomodoro-settings-key";
 
 export function createSettingsStore(
-  defaultSettings?: Partial<SettingsOptions>
+  defaultSettings: Partial<SettingsOptions> = {}
 ): SettingsStore {
   return writable<SettingsOptions>(
     Object.assign({}, initialSettings(), {
