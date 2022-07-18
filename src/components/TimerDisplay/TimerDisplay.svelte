@@ -38,7 +38,7 @@
 
 <button
   on:click
-  class="block w-full motion-safe:duration-200 motion-safe:ease-in-out rounded-full"
+  class="block w-full rounded-full"
 >
   <div
     class="timer-outer aspect-square rounded-full flex items-center justify-center"
@@ -67,12 +67,12 @@
         <div>
           <div
             aria-hidden="true"
-            class={`${timerStyles} flex items-center justify-center text-white timer-text`}
+            class={`${timerStyles} flex items-center justify-center text-white timer-text leading-none`}
           >
             {timerValue}
           </div>
           <div
-            class={`ui-font timer-action h-0 text-white text-14p sm:text-4 uppercase tracking-[13px] sm:tracking-[15px] motion-safe:transition-colors motion-safe:delay-100 motion-safe:duration-200 motion-safe:ease-in-out`}
+            class={`ui-font mt-5 timer-action h-0 text-white text-14p sm:text-4 uppercase tracking-[13px] sm:tracking-[15px] motion-safe:transition-colors motion-safe:duration-200 motion-safe:ease-in-out`}
           >
             {actionValue}
           </div>
@@ -83,13 +83,6 @@
 >
 
 <style lang="postcss">
-  @media (prefers-reduced-motion: no-preference) {
-    button:hover,
-    button:focus-visible {
-      transform: scale(1.05);
-    }
-  }
-
   button:focus-visible {
     @apply outline outline-ui-light outline-offset-4;
   }
@@ -106,8 +99,19 @@
       theme("colors.background")
     );
 
-    filter: drop-shadow(-3.125rem -3.125rem 6.25rem hsl(234, 40%, 25%))
-      drop-shadow(3.125rem 3.125rem 6.25rem theme("colors.ui.dark"));
+    /* --shadow-size: -3.125rem; */
+    /* --shadow-blur: 6.25rem; */
+    --shadow-size: 50px;
+    --shadow-blur: 36px;
+
+    filter: drop-shadow(
+        calc(-1 * var(--shadow-size)) calc(-1 * var(--shadow-size))
+          var(--shadow-blur) hsl(234, 40%, 25%)
+      )
+      drop-shadow(
+        calc(var(--shadow-size)) calc(var(--shadow-size)) var(--shadow-blur)
+          theme("colors.ui.dark")
+      );
   }
 
   .timer-text {

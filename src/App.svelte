@@ -19,7 +19,7 @@
   <h1 class="text-8 lowercase text-center mt-8 sm:mt-20">Pomodoro</h1>
 
   <!-- TIMER TABS -->
-  <div class="mt-11 sm:mt-14">
+  <div class="relative: z-10 mt-11 sm:mt-14">
     <TimerTabList activeTimer="pomodoro" />
   </div>
 
