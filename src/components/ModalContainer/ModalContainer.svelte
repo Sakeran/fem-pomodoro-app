@@ -41,7 +41,11 @@
   }
 
   function getFocusables() {
-    return Array.from(modal.querySelectorAll("*")).filter(
+    return Array.from(
+      modal.querySelectorAll(
+        `:not([aria-hidden="true"] *, :disabled, input[type="radio"]:not(:checked))`
+      )
+    ).filter(
       (el) => el instanceof HTMLElement && el.tabIndex >= 0
     ) as HTMLElement[];
   }
