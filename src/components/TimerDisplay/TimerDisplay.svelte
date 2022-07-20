@@ -10,8 +10,8 @@
   let circle: SVGCircleElement;
   let circleLength = 0;
 
-  let timerValue = "17:32"; // stub
-  let actionValue = "Reset"; // stub
+  export let secondsRemaining: number;
+  export let actionName: string;
 
   // Determine font / tracking for timer display
   let timerStyles = "";
@@ -31,15 +31,20 @@
     }
   }
 
+  function formatSeconds(s) {
+    const seconds = s % 60;
+
+    const minutes = (s - seconds) / 60;
+
+    return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+  }
+
   onMount(() => {
     circleLength = circle.getTotalLength();
   });
 </script>
 
-<button
-  on:click
-  class="block w-full rounded-full"
->
+<button on:click class="block w-full rounded-full">
   <div
     class="timer-outer aspect-square rounded-full flex items-center justify-center"
   >
@@ -69,12 +74,12 @@
             aria-hidden="true"
             class={`${timerStyles} flex items-center justify-center text-white timer-text leading-none`}
           >
-            {timerValue}
+            {formatSeconds(secondsRemaining)}
           </div>
           <div
             class={`ui-font mt-5 timer-action h-0 text-white text-14p sm:text-4 uppercase tracking-[13px] sm:tracking-[15px] motion-safe:transition-colors motion-safe:duration-200 motion-safe:ease-in-out`}
           >
-            {actionValue}
+            {actionName}
           </div>
         </div>
       </div>
@@ -98,9 +103,6 @@
       theme("colors.ui.dark"),
       theme("colors.background")
     );
-
-    /* --shadow-size: -3.125rem; */
-    /* --shadow-blur: 6.25rem; */
     --shadow-size: 50px;
     --shadow-blur: 36px;
 

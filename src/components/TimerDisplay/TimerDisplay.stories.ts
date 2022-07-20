@@ -1,4 +1,3 @@
-import { action } from "@storybook/addon-actions";
 import SettingsProviderSvelte from "../storyDecorators/SettingsProvider.svelte";
 import TimerDisplay from "./TimerDisplay.svelte";
 
@@ -43,6 +42,8 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   percentageComplete: 0,
+  secondsRemaining: 60 * 13 + 47,
+  actionName: "restart",
 };
 Default.parameters = {
   storeValues: {
@@ -51,6 +52,10 @@ Default.parameters = {
 };
 
 export const SerifFont = Template.bind({});
+SerifFont.args = {
+  ...Default.args,
+  actionName: "start",
+};
 SerifFont.parameters = {
   storeValues: {
     font: "serif",
@@ -58,6 +63,10 @@ SerifFont.parameters = {
 };
 
 export const MonospaceFont = Template.bind({});
+MonospaceFont.args = {
+  ...Default.args,
+  actionName: "pause",
+};
 MonospaceFont.parameters = {
   storeValues: {
     font: "mono",
