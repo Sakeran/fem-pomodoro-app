@@ -54,7 +54,7 @@
   }
 </script>
 
-<div class="bg-white text-ui-dark rounded-md" role="dialog" aria-labelledby="settings-label">
+<div class="ui-font bg-white text-ui-dark rounded-md" role="dialog" aria-labelledby="settings-label">
   <div
     class="pl-6 pr-2 pt-6 pb-7 sm:pl-10 sm:pr-6 sm:pb-8 flex justify-between items-center border-b border-gray"
   >

@@ -122,58 +122,56 @@
   }
 </script>
 
-<main
-  class="box-content px-6 max-w-[25.625rem] mx-auto"
-  data-ui-color={$settingsStore.color}
-  data-ui-font={$settingsStore.font}
->
-  <!-- TITLE -->
-  <h1 class="text-8 lowercase text-center mt-8 sm:mt-20">Pomodoro</h1>
+<div data-ui-color={$settingsStore.color} data-ui-font={$settingsStore.font}>
+  <main class="box-content px-6 max-w-[25.625rem] mx-auto">
+    <!-- TITLE -->
+    <h1 class="text-8 lowercase text-center mt-8 sm:mt-20">Pomodoro</h1>
 
-  <!-- TIMER TABS -->
-  <div class="relative: z-10 mt-11 sm:mt-14">
-    <TimerTabList
-      activeTimer={timerType}
-      on:selectTimerType={(e) => selectTimerType(e.detail)}
-    />
-  </div>
+    <!-- TIMER TABS -->
+    <div class="relative: z-10 mt-11 sm:mt-14">
+      <TimerTabList
+        activeTimer={timerType}
+        on:selectTimerType={(e) => selectTimerType(e.detail)}
+      />
+    </div>
 
-  <!-- TIMER DISPLAY -->
-  <div class="mt-12 sm:mt-[6.75rem]">
-    <!-- <TimerDisplay
+    <!-- TIMER DISPLAY -->
+    <div class="mt-12 sm:mt-[6.75rem]">
+      <!-- <TimerDisplay
       on:click={handleTimerClick}
       percentageComplete={1 -
         $timeRemaining / ($settingsStore.time[timerType] * 60)}
       secondsRemaining={$timeRemaining}
       {actionName}
     /> -->
-    <TimerDisplay
-      on:click={handleTimerClick}
-      secondsRemaining={$timeRemaining}
-      percentageComplete={$timerBarPercentage}
-      actionName={$displayAction}
-    />
-  </div>
+      <TimerDisplay
+        on:click={handleTimerClick}
+        secondsRemaining={$timeRemaining}
+        percentageComplete={$timerBarPercentage}
+        actionName={$displayAction}
+      />
+    </div>
 
-  <!-- BUTTONS BAR -->
-  <div class="relative z-10 mt-20 max-w-max mx-auto">
-    <MenuBar
-      on:openHelp={() => (currentScreen = "help")}
-      on:openSettings={() => (currentScreen = "settings")}
-    />
-  </div>
-</main>
+    <!-- BUTTONS BAR -->
+    <div class="relative z-10 mt-20 max-w-max mx-auto">
+      <MenuBar
+        on:openHelp={() => (currentScreen = "help")}
+        on:openSettings={() => (currentScreen = "settings")}
+      />
+    </div>
+  </main>
 
-<!-- MODALS -->
-{#if currentScreen === "help" || currentScreen === "settings"}
-  <ModalContainer on:close={closeModal}>
-    {#if currentScreen === "help"}
-      <HelpModal on:close={closeModal} />
-    {:else}
-      <SettingsModal on:close={closeModal} />
-    {/if}
-  </ModalContainer>
-{/if}
+  <!-- MODALS -->
+  {#if currentScreen === "help" || currentScreen === "settings"}
+    <ModalContainer on:close={closeModal}>
+      {#if currentScreen === "help"}
+        <HelpModal on:close={closeModal} />
+      {:else}
+        <SettingsModal on:close={closeModal} />
+      {/if}
+    </ModalContainer>
+  {/if}
+</div>
 
 <style>
   [data-ui-color="red"] {

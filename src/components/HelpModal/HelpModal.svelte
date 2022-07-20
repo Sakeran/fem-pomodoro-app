@@ -11,7 +11,7 @@
 </script>
 
 <div
-  class=" bg-white text-ui-dark rounded-md"
+  class="ui-font bg-white text-ui-dark rounded-md"
   role="dialog"
   aria-labelledby="help-label"
 >
