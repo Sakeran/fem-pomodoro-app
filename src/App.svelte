@@ -1,5 +1,6 @@
 <script lang="ts">
   import { setContext } from "svelte";
+  import { derived } from "svelte/store";
   import HelpModal from "./components/HelpModal/HelpModal.svelte";
   import MenuBar from "./components/MenuBar/MenuBar.svelte";
   import ModalContainer from "./components/ModalContainer/ModalContainer.svelte";
@@ -7,15 +8,106 @@
 
   import TimerDisplay from "./components/TimerDisplay/TimerDisplay.svelte";
   import TimerTabList from "./components/TimerTabList/TimerTabList.svelte";
-  import { createSettingsStore, settingsKey } from "./stores/settings";
+  import {
+    createSettingsStore,
+    settingsKey,
+    SettingsOptions,
+    SettingsStore,
+  } from "./stores/settings";
+  import { createTimer, TimerStore } from "./stores/timerStore";
+
+  let currentScreen: "main" | "settings" | "help" = "main";
+
+  type TimerType = keyof SettingsOptions["time"];
+  type TimerState = "initial" | "running" | "paused" | "finished";
 
   const settingsStore = createSettingsStore();
   setContext(settingsKey, settingsStore);
 
-  let currentScreen: "main" | "settings" | "help" = "main";
+  const timerStore = createTimer();
+
+  let timerType: TimerType = "pomodoro";
+
+  const timerState = derived<[SettingsStore, TimerStore], TimerState>(
+    [settingsStore, timerStore],
+    ([settings, timer]) => {
+      if (timer.ellapsedTime >= settings.time[timerType] * 60) {
+        return "finished";
+      }
+
+      if (timer.running) {
+        return "running";
+      }
+
+      if (timer.ellapsedTime === 0) {
+        return "initial";
+      }
+
+      return "paused";
+    }
+  );
+
+  const timeRemaining = derived<[SettingsStore, TimerStore], number>(
+    [settingsStore, timerStore],
+    ([settings, timer]) => {
+      return Math.max(0, settings.time[timerType] * 60 - timer.ellapsedTime);
+    }
+  );
+
+  const percentageComplete = derived(
+    [settingsStore, timeRemaining],
+    ([settings, timeRemaining]) => {
+      return 1 - timeRemaining / (settings.time[timerType] * 60);
+    }
+  );
+
+  const displayAction = derived([timerState], ([state]) => {
+    switch ($timerState) {
+      case "initial":
+      case "paused":
+        return "start";
+      case "finished":
+        return "restart";
+      case "running":
+        return "pause";
+    }
+  });
+
+  $: {
+    if ($timerState === "finished" && $timerStore.running) {
+      onFinish();
+    }
+  }
+
+  function selectTimerType(newType: TimerType) {
+    if (newType === timerType) return;
+
+    timerType = newType;
+    timerStore.restart();
+  }
+
+  function handleTimerClick() {
+    switch ($timerState) {
+      case "initial":
+      case "paused":
+        timerStore.start();
+        return;
+      case "finished":
+        timerStore.restart();
+        timerStore.start();
+        return;
+      case "running":
+        timerStore.pause();
+        return;
+    }
+  }
 
   function closeModal() {
     currentScreen = "main";
+  }
+
+  function onFinish() {
+    timerStore.pause();
   }
 </script>
 
@@ -29,12 +121,27 @@
 
   <!-- TIMER TABS -->
   <div class="relative: z-10 mt-11 sm:mt-14">
-    <TimerTabList activeTimer="pomodoro" />
+    <TimerTabList
+      activeTimer={timerType}
+      on:selectTimerType={(e) => selectTimerType(e.detail)}
+    />
   </div>
 
   <!-- TIMER DISPLAY -->
   <div class="mt-12 sm:mt-[6.75rem]">
-    <TimerDisplay />
+    <!-- <TimerDisplay
+      on:click={handleTimerClick}
+      percentageComplete={1 -
+        $timeRemaining / ($settingsStore.time[timerType] * 60)}
+      secondsRemaining={$timeRemaining}
+      {actionName}
+    /> -->
+    <TimerDisplay
+      on:click={handleTimerClick}
+      secondsRemaining={$timeRemaining}
+      percentageComplete={$percentageComplete}
+      actionName={$displayAction}
+    />
   </div>
 
   <!-- BUTTONS BAR -->
