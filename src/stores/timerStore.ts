@@ -1,10 +1,12 @@
 import { Ticker } from "../lib/ticker";
-import { readable } from "svelte/store";
+import { Readable, readable } from "svelte/store";
 
 type TimerData = {
   ellapsedTime: number;
   running: boolean;
 };
+
+export type TimerStore = Readable<TimerData>;
 
 export function createTimer() {
   const ticker = new Ticker();
@@ -47,6 +49,8 @@ export function createTimer() {
   };
 
   const restart = () => {
+    ticker.stop();
+    
     setData({
       ellapsedTime: 0,
       running: false,
