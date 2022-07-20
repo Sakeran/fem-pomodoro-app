@@ -44,7 +44,10 @@ export class Ticker {
 
     tick(1000);
   }
-  stop() {}
+
+  stop() {
+    this.clear();
+  }
 
   onTick(cb: (number) => void) {
     this.callbacks.add(cb);
