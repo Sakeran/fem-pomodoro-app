@@ -19,11 +19,13 @@
 
   import { SoundManager, soundManagerKey } from "./lib/sounds";
   import { Notifier, notifierKey } from "./lib/notifications";
+  import { deriveTimerState } from "./stores/deriveTimerState";
+  import { deriveRemainingTime } from "./stores/deriveRemainingTime";
+import { derivePercentageComplete } from "./stores/derivePercentageComplete";
 
   let currentScreen: "main" | "settings" | "help" = "main";
 
   type TimerType = keyof SettingsOptions["time"];
-  type TimerState = "initial" | "running" | "paused" | "finished";
 
   // General Settings
 
@@ -50,40 +52,9 @@
 
   const timerStore = createTimer();
 
-  let timerType: TimerType = "pomodoro";
-
-  const timerState = derived<[SettingsStore, TimerStore], TimerState>(
-    [settingsStore, timerStore],
-    ([settings, timer]) => {
-      if (timer.ellapsedTime >= settings.time[timerType] * 60) {
-        return "finished";
-      }
-
-      if (timer.running) {
-        return "running";
-      }
-
-      if (timer.ellapsedTime === 0) {
-        return "initial";
-      }
-
-      return "paused";
-    }
-  );
-
-  const timeRemaining = derived<[SettingsStore, TimerStore], number>(
-    [settingsStore, timerStore],
-    ([settings, timer]) => {
-      return Math.max(0, settings.time[timerType] * 60 - timer.ellapsedTime);
-    }
-  );
-
-  const percentageComplete = derived(
-    [settingsStore, timeRemaining],
-    ([settings, timeRemaining]) => {
-      return 1 - timeRemaining / (settings.time[timerType] * 60);
-    }
-  );
+  const timeRemaining = deriveRemainingTime(settingsStore, timerStore);
+  const timerState = deriveTimerState(settingsStore, timerStore);
+  const percentageComplete = derivePercentageComplete(settingsStore, timeRemaining);
 
   // Animated display
   const timerBarPercentage = tweened(0, {
@@ -103,9 +74,9 @@
 
   function selectTimerType(newType: TimerType) {
     soundManager.play("beep");
-    if (newType === timerType) return;
+    if (newType === $settingsStore.timerType) return;
 
-    timerType = newType;
+    $settingsStore.timerType = newType;
     timerStore.restart();
   }
 
@@ -147,7 +118,7 @@
     <!-- TIMER TABS -->
     <div class="relative: z-10 mt-11 sm:mt-14">
       <TimerTabList
-        activeTimer={timerType}
+        activeTimer={$settingsStore.timerType}
         on:selectTimerType={(e) => selectTimerType(e.detail)}
       />
     </div>

@@ -7,6 +7,8 @@ export type SettingsOptions = {
     longBreak: number;
   };
 
+  timerType: "pomodoro" | "shortBreak" | "longBreak";
+
   font: "sans" | "serif" | "mono";
   color: "red" | "blue" | "magenta";
 
@@ -22,6 +24,8 @@ const initialSettings: () => SettingsOptions = () => ({
     shortBreak: 5,
     longBreak: 15,
   },
+
+  timerType: "pomodoro",
 
   font: "sans",
   color: "red",
