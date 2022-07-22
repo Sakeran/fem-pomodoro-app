@@ -26,7 +26,7 @@ const initialSettings: () => SettingsOptions = () => ({
   font: "sans",
   color: "red",
 
-  sound: false,
+  sound: true,
   notifications: false,
 });
 

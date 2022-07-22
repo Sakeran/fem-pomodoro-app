@@ -17,13 +17,25 @@
   } from "./stores/settings";
   import { createTimer, TimerStore } from "./stores/timerStore";
 
+  import { SoundManager, soundManagerKey } from "./lib/sounds";
+
   let currentScreen: "main" | "settings" | "help" = "main";
 
   type TimerType = keyof SettingsOptions["time"];
   type TimerState = "initial" | "running" | "paused" | "finished";
 
+  // General Settings
+
   const settingsStore = createSettingsStore();
   setContext(settingsKey, settingsStore);
+
+  // Sounds
+
+  const soundManager = new SoundManager();
+  $: soundManager.soundIsAllowed = $settingsStore.sound;
+  setContext(soundManagerKey, soundManager);
+
+  // Timers
 
   const timerStore = createTimer();
 
@@ -91,6 +103,7 @@
   }
 
   function selectTimerType(newType: TimerType) {
+    soundManager.play("beep");
     if (newType === timerType) return;
 
     timerType = newType;
@@ -101,23 +114,28 @@
     switch ($timerState) {
       case "initial":
       case "paused":
+        soundManager.play("beep");
         timerStore.start();
         return;
       case "finished":
+        soundManager.play("beep");
         timerStore.restart();
         timerStore.start();
         return;
       case "running":
+        soundManager.play("close");
         timerStore.pause();
         return;
     }
   }
 
   function closeModal() {
+    soundManager.play("close");
     currentScreen = "main";
   }
 
   function onFinish() {
+    soundManager.play("ring");
     timerStore.pause();
   }
 </script>

@@ -1,9 +1,19 @@
 <script lang="ts">
+  import { SoundManager, soundManagerKey } from "../../lib/sounds";
   import Button from "../Button/Button.svelte";
 
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, getContext } from "svelte";
+  import { onMount } from "svelte";
 
   const dispatch = createEventDispatcher();
+
+  const soundManager: SoundManager = getContext(soundManagerKey);
+
+  onMount(() => {
+    if (soundManager) {
+      soundManager.play("beep");
+    }
+  });
 
   function close() {
     dispatch("close", undefined);

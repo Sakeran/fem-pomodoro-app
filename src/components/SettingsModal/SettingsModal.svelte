@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SoundManager, soundManagerKey } from "../../lib/sounds";
   import MenuTabList from "../MenuTabList/MenuTabList.svelte";
   import Button from "../Button/Button.svelte";
   import NumberInput from "../NumberInput/NumberInput.svelte";
@@ -20,6 +21,8 @@
 
   const store: SettingsStore = getContext(settingsKey);
 
+  const soundManager: SoundManager = getContext(soundManagerKey);
+
   // Temporary store to track settings changes
   const currentStore = createSettingsStore({ ...get(store) });
 
@@ -33,6 +36,16 @@
       $store.font !== $currentStore.font ||
       $store.notifications !== $currentStore.notifications ||
       $store.sound !== $currentStore.sound;
+
+    if (soundManager) {
+      soundManager.play("beep");
+    }
+  }
+
+  function switchTab() {
+    if (soundManager) {
+      soundManager.play("beep");
+    }
   }
 
   function applySettings() {
@@ -54,11 +67,17 @@
   }
 </script>
 
-<div class="ui-font bg-white text-ui-dark rounded-md" role="dialog" aria-labelledby="settings-label">
+<div
+  class="ui-font bg-white text-ui-dark rounded-md"
+  role="dialog"
+  aria-labelledby="settings-label"
+>
   <div
     class="pl-6 pr-2 pt-6 pb-7 sm:pl-10 sm:pr-6 sm:pb-8 flex justify-between items-center border-b border-gray"
   >
-    <h2 id="settings-label" class="text-5 sm:text-7 font-bold text-ui-dark">Settings</h2>
+    <h2 id="settings-label" class="text-5 sm:text-7 font-bold text-ui-dark">
+      Settings
+    </h2>
     <button
       class="p-4 text-background/50 hover:text-background/100 focus:text-background/100"
       on:click={close}
@@ -88,6 +107,7 @@
     <MenuTabList
       options={["timer", "system"]}
       bind:activeTab
+      on:tabSelect={switchTab}
       label={"Option Tabs"}
     />
   </div>

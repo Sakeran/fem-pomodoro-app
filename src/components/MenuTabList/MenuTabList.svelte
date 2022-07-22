@@ -1,12 +1,17 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   export let label: string;
   export let options: string[];
   export let activeTab: number = 0;
 
   let tablist: HTMLDivElement;
 
+  const dispatch = createEventDispatcher();
+
   function select(optionIndex) {
     activeTab = optionIndex;
+    dispatch("tabSelect", activeTab);
     const focusThis = tablist.querySelector(
       `[aria-controls="menutab-${options[optionIndex]}"]`
     ) as HTMLButtonElement;
