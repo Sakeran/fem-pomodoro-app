@@ -1,5 +1,7 @@
 <script lang="ts">
   import { SoundManager, soundManagerKey } from "../../lib/sounds";
+  import { Notifier, notifierKey } from "../../lib/notifications";
+
   import MenuTabList from "../MenuTabList/MenuTabList.svelte";
   import Button from "../Button/Button.svelte";
   import NumberInput from "../NumberInput/NumberInput.svelte";
@@ -13,6 +15,7 @@
     SettingsStore,
   } from "../../stores/settings";
   import { get } from "svelte/store";
+  import { onMount } from "svelte";
 
   let activeTab = 0;
   let hasUnappliedSettings = false;
@@ -22,9 +25,24 @@
   const store: SettingsStore = getContext(settingsKey);
 
   const soundManager: SoundManager = getContext(soundManagerKey);
+  const notifier: Notifier = getContext(notifierKey);
 
   // Temporary store to track settings changes
   const currentStore = createSettingsStore({ ...get(store) });
+
+  // Notifications permission might be revoked while editing.
+  // Handle this for the currentStore.
+  function clearNotificationsSet() {
+    $currentStore.notifications = false;
+  }
+
+  onMount(() => {
+    if (notifier) {
+      notifier.onPermissionsRevoked(clearNotificationsSet);
+
+      return () => notifier.removeOnPermissionsRevoked(clearNotificationsSet);
+    }
+  });
 
   $: {
     // Determine if any settings are currently unapplied.
@@ -39,6 +57,12 @@
 
     if (soundManager) {
       soundManager.play("beep");
+    }
+  }
+
+  $: {
+    if ($currentStore.notifications && notifier) {
+      notifier.requestPermissions();
     }
   }
 

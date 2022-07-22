@@ -18,6 +18,7 @@
   import { createTimer, TimerStore } from "./stores/timerStore";
 
   import { SoundManager, soundManagerKey } from "./lib/sounds";
+  import { Notifier, notifierKey } from "./lib/notifications";
 
   let currentScreen: "main" | "settings" | "help" = "main";
 
@@ -28,6 +29,16 @@
 
   const settingsStore = createSettingsStore();
   setContext(settingsKey, settingsStore);
+
+  // Notifications
+  const notifier = new Notifier();
+  $: notifier.notificationsEnabled = $settingsStore.notifications;
+  setContext(notifierKey, notifier);
+
+  // Remove 'notifications=on' setting if permission is revoked.
+  notifier.onPermissionsRevoked(() => {
+    $settingsStore.notifications = false;
+  });
 
   // Sounds
 
