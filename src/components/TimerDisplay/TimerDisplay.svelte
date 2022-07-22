@@ -11,7 +11,23 @@
   let circleLength = 0;
 
   export let secondsRemaining: number;
-  export let actionName: string;
+  export let timerState = "initial";
+  
+  let actionName: string = "start";
+  $: {
+    switch (timerState) {
+      case "initial":
+      case "paused":
+        actionName = "start";
+        break;
+      case "finished":
+        actionName = "restart";
+        break;
+      case "running":
+        actionName = "pause";
+        break;
+    }
+  }
 
   // Determine font / tracking for timer display
   let timerStyles = "";

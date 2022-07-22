@@ -95,18 +95,6 @@
   });
   $: timerBarPercentage.set($percentageComplete);
 
-  const displayAction = derived([timerState], ([state]) => {
-    switch ($timerState) {
-      case "initial":
-      case "paused":
-        return "start";
-      case "finished":
-        return "restart";
-      case "running":
-        return "pause";
-    }
-  });
-
   $: {
     if ($timerState === "finished" && $timerStore.running) {
       onFinish();
@@ -177,7 +165,7 @@
         on:click={handleTimerClick}
         secondsRemaining={$timeRemaining}
         percentageComplete={$timerBarPercentage}
-        actionName={$displayAction}
+        timerState={$timerState}
       />
     </div>
 

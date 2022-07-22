@@ -43,7 +43,7 @@ export const Default = Template.bind({});
 Default.args = {
   percentageComplete: 0,
   secondsRemaining: 60 * 13 + 47,
-  actionName: "restart",
+  timerState: "finished",
 };
 Default.parameters = {
   storeValues: {
@@ -54,7 +54,7 @@ Default.parameters = {
 export const SerifFont = Template.bind({});
 SerifFont.args = {
   ...Default.args,
-  actionName: "start",
+  timerState: "initial",
 };
 SerifFont.parameters = {
   storeValues: {
@@ -65,7 +65,7 @@ SerifFont.parameters = {
 export const MonospaceFont = Template.bind({});
 MonospaceFont.args = {
   ...Default.args,
-  actionName: "pause",
+  timerState: "running",
 };
 MonospaceFont.parameters = {
   storeValues: {
