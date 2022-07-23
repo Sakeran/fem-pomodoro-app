@@ -21,7 +21,7 @@
   import { Notifier, notifierKey } from "./lib/notifications";
   import { deriveTimerState } from "./stores/deriveTimerState";
   import { deriveRemainingTime } from "./stores/deriveRemainingTime";
-import { derivePercentageComplete } from "./stores/derivePercentageComplete";
+  import { derivePercentageComplete } from "./stores/derivePercentageComplete";
 
   let currentScreen: "main" | "settings" | "help" = "main";
 
@@ -54,7 +54,10 @@ import { derivePercentageComplete } from "./stores/derivePercentageComplete";
 
   const timeRemaining = deriveRemainingTime(settingsStore, timerStore);
   const timerState = deriveTimerState(settingsStore, timerStore);
-  const percentageComplete = derivePercentageComplete(settingsStore, timeRemaining);
+  const percentageComplete = derivePercentageComplete(
+    settingsStore,
+    timeRemaining
+  );
 
   // Animated display
   const timerBarPercentage = tweened(0, {
@@ -111,42 +114,39 @@ import { derivePercentageComplete } from "./stores/derivePercentageComplete";
 </script>
 
 <div data-ui-color={$settingsStore.color} data-ui-font={$settingsStore.font}>
-  <main class="box-content px-6 max-w-[25.625rem] mx-auto">
+  <header>
     <!-- TITLE -->
     <h1 class="text-8 lowercase text-center mt-8 sm:mt-20">Pomodoro</h1>
-
+  </header>
+  <main class="box-content px-6 max-w-[25.625rem] mx-auto">
     <!-- TIMER TABS -->
-    <div class="relative: z-10 mt-11 sm:mt-14">
+    <section class="relative: z-10 mt-11 sm:mt-14">
+      <h2 class="sr-only">Select Timer Mode</h2>
       <TimerTabList
         activeTimer={$settingsStore.timerType}
         on:selectTimerType={(e) => selectTimerType(e.detail)}
       />
-    </div>
+    </section>
 
     <!-- TIMER DISPLAY -->
-    <div class="mt-12 sm:mt-[6.75rem]">
-      <!-- <TimerDisplay
-      on:click={handleTimerClick}
-      percentageComplete={1 -
-        $timeRemaining / ($settingsStore.time[timerType] * 60)}
-      secondsRemaining={$timeRemaining}
-      {actionName}
-    /> -->
+    <section class="mt-12 sm:mt-[6.75rem]">
+      <h2 class="sr-only">Timer View</h2>
       <TimerDisplay
         on:click={handleTimerClick}
         secondsRemaining={$timeRemaining}
         percentageComplete={$timerBarPercentage}
         timerState={$timerState}
       />
-    </div>
+    </section>
 
     <!-- BUTTONS BAR -->
-    <div class="relative z-10 mt-20 max-w-max mx-auto">
+    <section class="relative z-10 mt-20 max-w-max mx-auto">
+      <h2 class="sr-only">Options</h2>
       <MenuBar
         on:openHelp={() => (currentScreen = "help")}
         on:openSettings={() => (currentScreen = "settings")}
       />
-    </div>
+    </section>
   </main>
 
   <!-- MODALS -->
