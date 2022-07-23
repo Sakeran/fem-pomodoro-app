@@ -1,6 +1,5 @@
 <script lang="ts">
   import { setContext } from "svelte";
-  import { derived } from "svelte/store";
   import { tweened } from "svelte/motion";
   import HelpModal from "./components/HelpModal/HelpModal.svelte";
   import MenuBar from "./components/MenuBar/MenuBar.svelte";
@@ -13,15 +12,15 @@
     createSettingsStore,
     settingsKey,
     SettingsOptions,
-    SettingsStore,
   } from "./stores/settings";
-  import { createTimer, TimerStore } from "./stores/timerStore";
+  import { createTimer } from "./stores/timerStore";
 
   import { SoundManager, soundManagerKey } from "./lib/sounds";
   import { Notifier, notifierKey } from "./lib/notifications";
   import { deriveTimerState } from "./stores/deriveTimerState";
   import { deriveRemainingTime } from "./stores/deriveRemainingTime";
   import { derivePercentageComplete } from "./stores/derivePercentageComplete";
+  import { makeNotificationMessage } from "./lib/notificationMessages";
 
   let currentScreen: "main" | "settings" | "help" = "main";
 
@@ -108,6 +107,11 @@
   }
 
   function onFinish() {
+    const msg = makeNotificationMessage(
+      $settingsStore.timerType,
+      $settingsStore.time[$settingsStore.timerType]
+    );
+    notifier.notify(msg.title, msg.message);
     soundManager.play("ring");
     timerStore.pause();
   }
