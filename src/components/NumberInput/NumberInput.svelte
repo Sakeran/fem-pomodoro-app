@@ -15,7 +15,7 @@
   }
 
   function decrement() {
-    value = Math.max(value - 1, 0);
+    value = Math.max(value - 1, 1);
     input.focus();
   }
 
@@ -41,7 +41,7 @@
       placeholder={placeholder.toString()}
       class="bg-ui-light text-14p max-w-[6.75em] invalid:text-ui-red"
       bind:value
-      min="0"
+      min="1"
     />
     <div
       class="flex flex-col gap-2 text-background/25 self-stretch cursor-auto"
