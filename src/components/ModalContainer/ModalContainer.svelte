@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
+  import { scale } from "svelte/transition";
 
   const dispatch = createEventDispatcher();
 
@@ -62,7 +63,16 @@
   class="fixed inset-0 z-40 bg-[#0A0C1C]/50 flex justify-center items-center"
   on:click|self={close}
 >
-  <div class="box-content p-6 w-full max-w-[33.75rem]" bind:this={modal}>
+  <div
+    class="box-content p-6 w-full max-w-[33.75rem]"
+    bind:this={modal}
+    transition:scale={{
+      duration: window.matchMedia("(prefers-reduced-motion: no-preference)")
+        .matches
+        ? 200
+        : 0,
+    }}
+  >
     <slot />
   </div>
 </div>
