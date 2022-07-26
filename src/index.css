@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+kbd {
+  @apply text-sm inline-block py-1 px-2 font-mono bg-gray rounded-sm;
+}
+
+td {
+  @apply pt-2;
+}
+
 ::selection {
   background-color: theme("colors.ui.dark");
   color: white;

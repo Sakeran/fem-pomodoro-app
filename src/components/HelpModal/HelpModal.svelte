@@ -58,27 +58,80 @@
 
   <div class="px-6 sm:px-10 mt-6 sm:mt-8 ">
     <!-- Content -->
-    <div class="space-y-4 max-h-[20em] overflow-scroll" tabindex="0">
-      <p>TODO: Add Help Text</p>
+    <div class="space-y-4 max-h-[20em] overflow-y-scroll px-1" tabindex="0">
+      <h2 class="text-5">About Pomodoro</h2>
 
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque
-        harum dignissimos nostrum odit, voluptatem officiis laboriosam odio
-        dolorum accusamus animi a, rerum, placeat quod. Quod ipsa pariatur unde
-        voluptatum commodi?
+      <p class="opacity-90">
+        Pomodoro is a time management technique useful for studying and
+        productivity. For a more detailed description, see this <a
+          class="text-[blue]"
+          href="https://wikipedia.org/wiki/Pomodoro_Technique"
+        >
+          Wikipeida article on the Pomodoro technique
+        </a>.
       </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque
-        harum dignissimos nostrum odit, voluptatem officiis laboriosam odio
-        dolorum accusamus animi a, rerum, placeat quod. Quod ipsa pariatur unde
-        voluptatum commodi?
+
+      <h2 class="text-5">Using this app</h2>
+      <p class="opacity-90">
+        Select one of the three timer types ('Pomodoro', 'Short Break', or 'Long
+        Break') to switch to that timer. Press the timer button to start the
+        timer. To pause the timer, press the timer button again.
       </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque
-        harum dignissimos nostrum odit, voluptatem officiis laboriosam odio
-        dolorum accusamus animi a, rerum, placeat quod. Quod ipsa pariatur unde
-        voluptatum commodi?
+
+      <p class="opacity-90">
+        When the current timer reaches zero, you will hear a sound cue, see a
+        notification, or both, depending on your configured settings. At this
+        point, you may restart the timer by clicking the button again, or switch
+        to a different timer.
       </p>
+
+      <h2 class="text-5">Customization</h2>
+      <p class="opacity-90">
+        Open the settings menu to customize the appearance and behavior of the
+        application. Available options include making the timer durations longer
+        or shorter, custom fonts, and custom application colors.
+      </p>
+
+      <p class="opacity-90">
+        Also available are options for playing sounds and displaying
+        notifications when the current timer finishes. Note that selecting these
+        options usually require additional browser permissions, which you will
+        be prompted to give when enabling these options.
+      </p>
+
+      <h2 class="text-5">Shortcuts</h2>
+      <p class="opacity-90">
+        Several different shortcuts are available for starting and stopping the
+        timer, as well as for switching between timer types.
+      </p>
+
+      <table class="w-full border-collapse">
+        <thead class="border-b border-gray">
+          <tr
+            ><th class="text-start">Shortcut</th><th class="text-start"
+              >Effect</th
+            ></tr
+          >
+        </thead>
+        <tbody class="opacity-90">
+          <tr
+            ><td class="pt-4"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td>
+            <td>Start / Stop Timer</td></tr
+          >
+          <tr
+            ><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd></td>
+            <td>Switch to Pomodoro timer</td></tr
+          >
+          <tr
+            ><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd></td>
+            <td>Switch to Short Break timer</td></tr
+          >
+          <tr
+            ><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd></td>
+            <td>Switch to Long Break timer</td></tr
+          >
+        </tbody>
+      </table>
     </div>
 
     <div class="relative translate-y-1/2 flex justify-center mt-1">
