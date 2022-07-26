@@ -12,7 +12,7 @@
 
   export let secondsRemaining: number;
   export let timerState = "initial";
-  
+
   let actionName: string = "start";
   $: {
     switch (timerState) {
@@ -47,12 +47,37 @@
     }
   }
 
-  function formatSeconds(s) {
+  function parseRemainingTime(s: number) {
     const seconds = s % 60;
-
     const minutes = (s - seconds) / 60;
 
+    return [minutes, seconds];
+  }
+
+  function formatSeconds(s) {
+    const [minutes, seconds] = parseRemainingTime(s);
+
     return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+  }
+
+  function formatSecondsSR(s: number) {
+    if (timerState === "finished") {
+      return "0 seconds remaining, finished";
+    }
+
+    const [minutes, seconds] = parseRemainingTime(s);
+
+    let readableTime = minutes > 0 ? `${minutes} minutes ` : "";
+    readableTime += `${seconds} seconds remaining`;
+    readableTime += timerState === "paused" ? ", paused" : "";
+
+    return readableTime;
+  }
+
+  let srTimerDisplay = "";
+  $: {
+    timerState;
+    srTimerDisplay = formatSecondsSR(secondsRemaining);
   }
 
   onMount(() => {
@@ -60,6 +85,7 @@
   });
 </script>
 
+<p class="sr-only" role="timer">{srTimerDisplay}</p>
 <button on:click class="block w-full rounded-full">
   <div
     class="timer-outer aspect-square rounded-full flex items-center justify-center"
