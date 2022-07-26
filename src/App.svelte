@@ -74,6 +74,17 @@
     }
   }
 
+  function startTimer(restart = false) {
+    soundManager.play("beep");
+    if (restart) timerStore.restart();
+    timerStore.start();
+  }
+
+  function stopTimer() {
+    soundManager.play("close");
+    timerStore.pause();
+  }
+
   function selectTimerType(newType: TimerType) {
     soundManager.play("beep");
     if (newType === $settingsStore.timerType) return;
@@ -86,18 +97,11 @@
     switch ($timerState) {
       case "initial":
       case "paused":
-        soundManager.play("beep");
-        timerStore.start();
-        return;
+        return startTimer();
       case "finished":
-        soundManager.play("beep");
-        timerStore.restart();
-        timerStore.start();
-        return;
+        return startTimer(true);
       case "running":
-        soundManager.play("close");
-        timerStore.pause();
-        return;
+        return stopTimer();
     }
   }
 
@@ -115,7 +119,41 @@
     soundManager.play("ring");
     timerStore.pause();
   }
+
+  function handleKeydown(e: KeyboardEvent) {
+    // Handle Shortcuts
+
+    // Shortcuts are active only on the main screen.
+    if (currentScreen !== "main") return;
+
+    // Shortcuts always of the form (shift+alt+KEY)
+    if (!(e.shiftKey && e.altKey)) return;
+
+    // Ignore repeats
+    if (e.repeat) return;
+
+    switch (e.key) {
+      case "S":
+        // Start / Stop Timer
+        e.preventDefault();
+        return handleTimerClick();
+      case "J":
+        // Select Pomodoro Timer
+        e.preventDefault();
+        return selectTimerType("pomodoro");
+      case "K":
+        // Select Short Break Timer
+        e.preventDefault();
+        return selectTimerType("shortBreak");
+      case "L":
+        // Select Long Break Timer
+        e.preventDefault();
+        return selectTimerType("longBreak");
+    }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div data-ui-color={$settingsStore.color} data-ui-font={$settingsStore.font}>
   <header>
