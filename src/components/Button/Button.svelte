@@ -4,9 +4,17 @@
 </script>
 
 <button
-  class:bg-ui-red={!disabled}
-  class:bg-ui-dull-red={disabled}
-  class="font-sans rounded-pill text-white px-12 py-4 enabled:hover:bg-ui-light-red enabled:focus:bg-ui-light-red motion-safe:transition-colors motion-safe:duration-500"
+  class="font-sans rounded-pill text-white px-12 py-4 motion-safe:transition-colors motion-safe:duration-500"
   on:click
   {disabled}>{text}</button
 >
+
+<style lang="postcss">
+  button {
+    background-color: theme("colors.gray");
+  }
+
+  button:enabled {
+    background-color: var(--ui-color);
+  }
+</style>
