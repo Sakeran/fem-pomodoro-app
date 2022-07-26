@@ -1,6 +1,5 @@
 <script lang="ts">
   import { setContext } from "svelte";
-  import { tweened } from "svelte/motion";
   import HelpModal from "./components/HelpModal/HelpModal.svelte";
   import MenuBar from "./components/MenuBar/MenuBar.svelte";
   import ModalContainer from "./components/ModalContainer/ModalContainer.svelte";
@@ -57,16 +56,6 @@
     settingsStore,
     timeRemaining
   );
-
-  // Animated display
-  const timerBarPercentage = tweened(0, {
-    duration:
-      window &&
-      window.matchMedia("(prefers-reduced-motion: no-preference)").matches
-        ? 1000
-        : 0,
-  });
-  $: timerBarPercentage.set($percentageComplete);
 
   $: {
     if ($timerState === "finished" && $timerStore.running) {
@@ -176,7 +165,7 @@
       <TimerDisplay
         on:click={handleTimerClick}
         secondsRemaining={$timeRemaining}
-        percentageComplete={$timerBarPercentage}
+        percentageComplete={$percentageComplete}
         timerState={$timerState}
       />
     </section>
