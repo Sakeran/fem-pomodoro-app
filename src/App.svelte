@@ -157,7 +157,7 @@
     <!-- TITLE -->
     <h1 class="text-8 lowercase text-center mt-8 sm:mt-20">Pomodoro</h1>
   </header>
-  <main class="box-content px-6 max-w-[25.625rem] mx-auto">
+  <main class="relative box-content px-6 max-w-[25.625rem] mx-auto">
     <!-- TIMER TABS -->
     <section class="relative: z-10 mt-11 sm:mt-14">
       <h2 class="sr-only">Select Timer Mode</h2>

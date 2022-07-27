@@ -59,12 +59,13 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
+<div class="fixed inset-0 z-30 bg-[#0A0C1C]/50" on:click|self={close} />
+
 <div
-  class="fixed inset-0 z-40 bg-[#0A0C1C]/50 flex justify-center items-center"
-  on:click|self={close}
+  class="absolute left-0 right-0 top-0 z-40 md:flex md:bottom-0 md:items-center"
 >
   <div
-    class="box-content p-6 w-full max-w-[33.75rem]"
+    class="box-content p-6 max-w-[33.75rem] mx-auto"
     bind:this={modal}
     transition:scale={{
       duration: window.matchMedia("(prefers-reduced-motion: no-preference)")
