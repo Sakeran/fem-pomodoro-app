@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 kbd {
-  @apply text-sm inline-block py-1 px-2 font-mono bg-gray rounded-sm;
+  @apply text-sm inline-block py-1 px-2 font-mono bg-gray rounded-sm my-1;
 }
 
 td {
