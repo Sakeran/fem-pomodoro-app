@@ -155,7 +155,7 @@
 <div data-ui-color={$settingsStore.color} data-ui-font={$settingsStore.font}>
   <header>
     <!-- TITLE -->
-    <h1 class="text-8 lowercase text-center mt-8 sm:mt-20">Pomodoro</h1>
+    <h1 class="text-8 lowercase text-center mt-8 sm:mt-20 md:mt-12">Pomodoro</h1>
   </header>
   <main class="relative box-content px-6 max-w-[25.625rem] mx-auto">
     <!-- TIMER TABS -->
@@ -168,7 +168,7 @@
     </section>
 
     <!-- TIMER DISPLAY -->
-    <section class="mt-12 sm:mt-[6.75rem]">
+    <section class="mt-12 sm:mt-[6.75rem] md:mt-11">
       <h2 class="sr-only">Timer View</h2>
       <TimerDisplay
         on:click={handleTimerClick}
@@ -179,7 +179,7 @@
     </section>
 
     <!-- BUTTONS BAR -->
-    <section class="relative z-10 mt-20 max-w-max mx-auto">
+    <section class="relative z-10 mt-20 sm:mt-36 lg:mt-16 max-w-max mx-auto">
       <h2 class="sr-only">Options</h2>
       <MenuBar
         on:openHelp={() => (currentScreen = "help")}
