@@ -159,7 +159,7 @@
   </header>
   <main class="relative box-content px-6 max-w-[25.625rem] mx-auto">
     <!-- TIMER TABS -->
-    <section class="relative: z-10 mt-11 sm:mt-14">
+    <section class="relative z-10 mt-11 sm:mt-14">
       <h2 class="sr-only">Select Timer Mode</h2>
       <TimerTabList
         activeTimer={$settingsStore.timerType}
