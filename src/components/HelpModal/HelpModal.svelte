@@ -58,7 +58,10 @@
 
   <div class="px-6 sm:px-10 mt-6 sm:mt-8 ">
     <!-- Content -->
-    <div class="space-y-4 max-h-[20em] overflow-y-scroll px-1" tabindex="0">
+    <div
+      class="space-y-4 max-h-[20em] overflow-y-scroll px-1 pb-8"
+      tabindex="0"
+    >
       <h2 class="text-5">About Pomodoro</h2>
 
       <p class="opacity-90">
@@ -129,6 +132,14 @@
           <tr
             ><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd></td>
             <td>Switch to Long Break timer</td></tr
+          >
+          <tr
+            ><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd></td>
+            <td>Open settings menu</td></tr
+          >
+          <tr
+            ><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd></td>
+            <td>Open help screen</td></tr
           >
         </tbody>
       </table>

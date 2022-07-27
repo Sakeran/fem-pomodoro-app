@@ -138,6 +138,14 @@
         // Select Long Break Timer
         e.preventDefault();
         return selectTimerType("longBreak");
+      case "H":
+        // Open Help Modal
+        e.preventDefault();
+        return (currentScreen = "help");
+      case "M":
+        // Open Settings Modal
+        e.preventDefault();
+        return (currentScreen = "settings");
     }
   }
 </script>
