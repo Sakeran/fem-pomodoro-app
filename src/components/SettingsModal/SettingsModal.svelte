@@ -82,8 +82,6 @@
     $store.font = $currentStore.font;
     $store.notifications = $currentStore.notifications;
     $store.sound = $currentStore.sound;
-
-    close();
   }
 
   function close() {
